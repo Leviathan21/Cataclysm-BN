@@ -213,7 +213,7 @@ class game
 
         /** Returns a list of currently active character saves. */
         std::vector<std::string> list_active_characters();
-        void write_memorial_file( std::string sLastWords );
+        void write_memorial_file( const std::string &filename, std::string sLastWords );
         bool cleanup_at_end();
         void start_calendar();
         /** MAIN GAME LOOP. Returns true if game is over (death, saved, quit, etc.). */
@@ -939,6 +939,7 @@ class game
         void display_visibility(); // Displays visibility map
         void display_lighting(); // Displays lighting conditions heat map
         void display_radiation(); // Displays radiation map
+        void display_transparency(); // Displays transparency map
 
         // prints the IRL time in ms of the last full in-game hour
         class debug_hour_timer
@@ -954,7 +955,7 @@ class game
 
         Creature *is_hostile_within( int distance );
 
-        void move_save_to_graveyard();
+        void move_save_to_graveyard( const std::string &dirname );
         bool save_player_data();
         // ########################## DATA ################################
     private:

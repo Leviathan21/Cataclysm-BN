@@ -583,6 +583,7 @@ List of known flags, used in both `terrain.json` and `furniture.json`.
 - ```SHORT``` Feature too short to collide with vehicle protrusions. (mirrors, blades).
 - ```SIGN``` Show written message on examine.
 - ```SMALL_PASSAGE``` This terrain or furniture is too small for large or huge creatures to pass through.
+- ```SUN_ROOF_ABOVE``` This furniture (terrain is not supported currently) has a "fake roof" above, that blocks sunlight. Special hack for #44421, to be removed later. 
 - ```SUPPORTS_ROOF``` Used as a boundary for roof construction.
 - ```SUPPRESS_SMOKE``` Prevents smoke from fires; used by ventilated wood stoves, etc.
 - ```SWIMMABLE``` Player and monsters can swim through it.
@@ -1210,6 +1211,7 @@ These branches are also the valid entries for the categories of `dreams` in `dre
 - ```ALLOW_OUTSIDE``` Allows placing player outside of building, useful for outdoor start.
 - ```BAD_DAY``` Player starts the game drunk, depressed and sick with the flu.
 - ```BOARDED``` Start in boarded building (windows and doors are boarded, movable furniture is moved to windows and doors).
+- ```BORDERED``` Initial start location is bordered by an enormous wall of solid rock.
 - ```CHALLENGE``` Game won't choose this scenario in random game types.
 - ```CITY_START``` Scenario is available only when city size value in world options is more than 0.
 - ```FIRE_START``` Player starts the game with fire nearby.

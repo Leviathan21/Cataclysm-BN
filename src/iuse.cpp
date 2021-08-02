@@ -2268,7 +2268,7 @@ int iuse::note_bionics( player *p, item *it, bool t, const tripoint &pos )
             }
 
             corpse.set_var( "bionics_scanned_by", p->getID().get_value() );
-            if( cbms.size() > 0 ) {
+            if( !cbms.empty() ) {
                 std::string bionics_string =
                     enumerate_as_string( cbms.begin(), cbms.end(),
                 []( const item * entry ) -> std::string {
@@ -9601,7 +9601,17 @@ int wash_items( player *p, bool soft_items, bool hard_items )
 
 int iuse::weak_antibiotic( player *p, item *it, bool, const tripoint & )
 {
-    p->add_msg_if_player( _( "You take some %s." ), it->tname() );
+    p->add_msg_player_or_npc( m_neutral,
+                              _( "You take some weak antibiotics." ),
+                              _( "<npcname> takes some weak antibiotics." ) );
+    if( p->has_effect( effect_tetanus ) ) {
+        if( one_in( 6 ) ) {
+            p->remove_effect( effect_tetanus );
+            p->add_msg_if_player( m_good, _( "The muscle spasms start to go away." ) );
+        } else {
+            p->add_msg_if_player( m_warning, _( "The medication does nothing to help the spasms." ) );
+        }
+    }
     if( p->has_effect( effect_infected ) && !p->has_effect( effect_weak_antibiotic ) ) {
         p->add_msg_if_player( m_good, _( "The throbbing of the infection diminishes.  Slightly." ) );
     }
@@ -9611,7 +9621,17 @@ int iuse::weak_antibiotic( player *p, item *it, bool, const tripoint & )
 
 int iuse::strong_antibiotic( player *p, item *it, bool, const tripoint & )
 {
-    p->add_msg_if_player( _( "You take some %s." ), it->tname() );
+    p->add_msg_player_or_npc( m_neutral,
+                              _( "You take some strong antibiotics." ),
+                              _( "<npcname> takes some strong antibiotics." ) );
+    if( p->has_effect( effect_tetanus ) ) {
+        if( rng( 1, 100 ) <= 70 ) {
+            p->remove_effect( effect_tetanus );
+            p->add_msg_if_player( m_good, _( "The muscle spasms start to go away." ) );
+        } else {
+            p->add_msg_if_player( m_warning, _( "The medication does nothing to help the spasms." ) );
+        }
+    }
     if( p->has_effect( effect_infected ) && !p->has_effect( effect_strong_antibiotic ) ) {
         p->add_msg_if_player( m_good, _( "You feel much better - almost entirely." ) );
     }
